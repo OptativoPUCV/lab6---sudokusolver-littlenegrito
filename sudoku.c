@@ -50,8 +50,22 @@ int is_valid(Node* n){
 
 
 List* get_adj_nodes(Node* n){
-    List* list=createList();
-    return list;
+   List* list=createList();
+   for(int i = 0; i < 9; i++){
+      for(int j = 0; j < 9; j++){ // recorrer matriz
+         if(n->sudo[i][j] == 0){ // celda vacia
+            for(int k = 1; k <= 9; k++){
+               Node* adj = copy(n); // copiar nodo
+               adj->sudo[i][j] = k; // asignar valor
+               if(is_valid(adj)){ // comprobar
+                  pushBack(list, adj); // añadir a lista
+               }
+            }
+            return list;
+         }
+      }
+   }
+   return list;
 }
 
 
