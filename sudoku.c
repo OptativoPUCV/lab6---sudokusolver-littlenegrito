@@ -44,7 +44,37 @@ void print_node(Node* n){
 }
 
 int is_valid(Node* n){
+   for(int i = 0; i < 9; i++){
+      for(int j = 0; j < 9; j++){
+         if(n->sudo[i][j] == 0){
+            continue;
 
+         }
+         // Verificar la fila
+         for(int k = 0; k < 9; k++){
+            if(k != j && n->sudo[i][k] == n->sudo[i][j]){
+               return 0; // No es válido
+            }
+         }
+         // Verificar la columna
+         for(int k = 0; k < 9; k++){
+            if(k != i && n->sudo[k][j] == n->sudo[i][j]){
+               return 0; // No es válido
+            }
+         }
+         // Verificar el cuadrante 3x3
+         int inicioFila = (i/3) * 3;
+         int inicioCol = (j/3) * 3;
+         for(int fila = inicioFila; fila < inicioFila + 3; fila++){
+            for(int col = inicioCol; col < inicioCol + 3; col++){
+               if((fila != i || col != j) && n->sudo[fila][col] == n->sudo[i][j]){
+                  return 0; // No es válido
+               }
+            }
+         }
+      }
+
+   }
     return 1;
 }
 
